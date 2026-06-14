@@ -1,0 +1,111 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-06-14 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "client_id",
+  "client_secret",
+  "tenant_id",
+  "azure_owner_email_id",
+  "owner_azure_object_id",
+  "redirect_uri",
+  "custom_webhook_subscription_id",
+  "access_token",
+  "refresh_token",
+  "token_expiry",
+  "enabled_doctypes"
+ ],
+ "fields": [
+  {
+   "fieldname": "client_id",
+   "fieldtype": "Data",
+   "label": "Client ID"
+  },
+  {
+   "fieldname": "client_secret",
+   "fieldtype": "Password",
+   "label": "Client Secret"
+  },
+  {
+   "fieldname": "tenant_id",
+   "fieldtype": "Data",
+   "label": "Tenant ID"
+  },
+  {
+   "fieldname": "redirect_uri",
+   "fieldtype": "Data",
+   "label": "Redirect URI"
+  },
+  {
+   "fieldname": "access_token",
+   "fieldtype": "Text",
+   "label": "Access Token",
+   "read_only": 1,
+   "hidden": 1
+  },
+  {
+   "fieldname": "refresh_token",
+   "fieldtype": "Text",
+   "label": "Refresh Token",
+   "read_only": 1,
+   "hidden": 1
+  },
+  {
+   "fieldname": "token_expiry",
+   "fieldtype": "Datetime",
+   "label": "Token Expiry",
+   "read_only": 1
+  },
+  {
+   "fieldname": "azure_owner_email_id",
+   "fieldtype": "Data",
+   "label": "Azure Owner Email ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "owner_azure_object_id",
+   "fieldtype": "Data",
+   "label": "Owner Azure Object ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "custom_webhook_subscription_id",
+   "fieldtype": "Data",
+   "label": "Webhook Subscription ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "enabled_doctypes",
+   "fieldtype": "Table",
+   "label": "Enabled Doctypes",
+   "options": "Teams Enabled Doctype"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-06-14 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Teams Integration",
+ "name": "Teams Settings",
+ "owner": "siva@enfono.com",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

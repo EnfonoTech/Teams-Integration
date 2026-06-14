@@ -1,0 +1,57 @@
+{
+ "custom_fields": [
+  {
+   "dt": "Interview",
+   "fieldname": "custom_applicant_email",
+   "fieldtype": "Data",
+   "label": "Applicant Email",
+   "fetch_from": "job_applicant.email_id",
+   "fetch_if_empty": 0,
+   "insert_after": "job_applicant",
+   "hidden": 1,
+   "read_only": 1,
+   "module": "Teams Integration"
+  },
+  {
+   "dt": "Interview",
+   "fieldname": "custom_outlook_event_id",
+   "fieldtype": "Small Text",
+   "label": "Outlook Event ID",
+   "insert_after": "resume_link",
+   "hidden": 1,
+   "module": "Teams Integration"
+  },
+  {
+   "dt": "Interview",
+   "fieldname": "custom_teams_meeting_url",
+   "fieldtype": "Small Text",
+   "label": "Teams Meeting URL",
+   "insert_after": "to_time",
+   "read_only": 1,
+   "module": "Teams Integration"
+  },
+  {
+   "dt": "Interview",
+   "fieldname": "custom_join_teams_meeting",
+   "fieldtype": "Button",
+   "label": "Join Teams Meeting",
+   "insert_after": "custom_teams_meeting_url",
+   "depends_on": "eval:doc.custom_teams_meeting_url",
+   "module": "Teams Integration"
+  }
+ ],
+ "custom_perms": [],
+ "doctype": "Interview",
+ "links": [],
+ "property_setters": [
+  {
+   "doc_type": "Interview",
+   "doctype_or_field": "DocField",
+   "field_name": "from_time",
+   "property": "mandatory_depends_on",
+   "property_type": "Data",
+   "value": "eval:doc.scheduled_on"
+  }
+ ],
+ "sync_on_migrate": 1
+}

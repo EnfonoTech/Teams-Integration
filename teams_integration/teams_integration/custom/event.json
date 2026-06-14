@@ -1,0 +1,45 @@
+{
+ "custom_fields": [
+  {
+   "dt": "Event",
+   "fieldname": "custom_outlook_event_id",
+   "fieldtype": "Small Text",
+   "label": "Outlook Event ID",
+   "insert_after": "location",
+   "hidden": 1,
+   "module": "Teams Integration"
+  },
+  {
+   "dt": "Event",
+   "fieldname": "custom_teams_chat_id",
+   "fieldtype": "Data",
+   "label": "Teams Chat ID",
+   "insert_after": "attending",
+   "read_only": 1,
+   "module": "Teams Integration"
+  },
+  {
+   "dt": "Event",
+   "fieldname": "custom_teams_meeting_url",
+   "fieldtype": "Small Text",
+   "label": "Teams Meeting URL",
+   "insert_after": "custom_teams_chat_id",
+   "read_only": 1,
+   "module": "Teams Integration"
+  },
+  {
+   "dt": "Event",
+   "fieldname": "custom_join_teams_meeting",
+   "fieldtype": "Button",
+   "label": "Join Teams Meeting",
+   "insert_after": "custom_teams_meeting_url",
+   "depends_on": "eval:doc.custom_teams_meeting_url",
+   "module": "Teams Integration"
+  }
+ ],
+ "custom_perms": [],
+ "doctype": "Event",
+ "links": [],
+ "property_setters": [],
+ "sync_on_migrate": 1
+}

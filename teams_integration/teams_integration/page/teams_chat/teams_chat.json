@@ -1,0 +1,16 @@
+{
+ "creation": "2026-01-01 00:00:00.000000",
+ "doctype": "Page",
+ "idx": 0,
+ "modified": "2026-01-01 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Teams Integration",
+ "name": "teams-chat",
+ "owner": "siva@enfono.com",
+ "page_name": "teams-chat",
+ "restrict_to_domain": null,
+ "roles": [],
+ "standard": "Yes",
+ "system_page": 0,
+ "title": "Teams Chat"
+}
