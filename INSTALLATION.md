@@ -238,10 +238,166 @@ These run automatically in the background:
 
 ---
 
-## Notes
+## Use Cases & Test Scenarios
 
-- For feature-specific use cases and test scenarios, see **[FEATURES.md](FEATURES.md)**.
-- For advanced features (real-time notifications, adaptive cards, presence, workflow alerts, calendar sync, recordings, external guests, activity report), additional Azure permissions may be required — see the *Additional Azure Permissions Summary* section in FEATURES.md.
+These tests verify that the app is installed and configured correctly. Run them in order after completing the setup above.
+
+---
+
+### Test 1 — Sync Azure IDs for employees
+
+**Goal:** Ensure all employees are linked to their Microsoft 365 accounts.
+
+**Steps:**
+1. Open any **Employee** record that has a `Company Email` or `Personal Email` set.
+2. Click **Teams → Sync Teams Azure ID**.
+
+**Expected result:**  
+The **Teams Azure Object ID** field is populated. The dashboard shows **"Teams Linked"** in green.
+
+---
+
+### Test 2 — Group chat on a Project
+
+**Goal:** Create a group Teams chat linked to a Project.
+
+**Steps:**
+1. Open any **Project** that has at least 2 team members with synced Azure IDs.
+2. Click **Teams → Create Teams Chat**.
+
+**Expected result:**  
+- Green flash: *"Teams chat created and linked."*
+- The **Teams Chat ID** field on the Project is populated.
+- In Microsoft Teams, a new group chat appears with the linked team members.
+
+---
+
+### Test 3 — Send a message to the group chat
+
+**Goal:** Send a plain-text message from ERPNext to the Teams group chat.
+
+**Steps:**
+1. On the same Project form, click **Teams → Send Teams Message**.
+2. Type a test message and click **Send**.
+
+**Expected result:**  
+- Flash: *"Message sent to Teams."*
+- In Microsoft Teams, the message appears in the group chat.
+
+---
+
+### Test 4 — Sync conversation and open it
+
+**Goal:** Confirm local message history is populated.
+
+**Steps:**
+1. On the Project form, click **Teams → Sync Now**.
+2. Then click **Teams → Open Teams Chat**.
+
+**Expected result:**  
+The dialog shows the messages from Test 3 with correct timestamps and sender names.
+
+---
+
+### Test 5 — Create a Teams meeting on an Event
+
+**Goal:** Create an Outlook/Teams meeting from an ERPNext Event.
+
+**Steps:**
+1. Create a new **Event** with a future `starts_on` date; add at least one participant whose email is in your tenant.
+2. Save the Event.
+3. Click **Teams → Create Teams Meeting**.
+
+**Expected result:**  
+- The **Teams Meeting URL** field is populated.
+- A **Join Teams Meeting** button appears on the Event form.
+- In Outlook / Teams Calendar, the meeting appears with the correct title, time, and attendees.
+
+---
+
+### Test 6 — Admin direct message to an employee
+
+**Goal:** Send a direct Teams message to an employee using the admin token.
+
+**Steps:**
+1. Open any **Employee** record (as HR Manager or System Manager).
+2. Click **Teams → Send Direct Message**.
+3. Type a test message and click **Send**.
+
+**Expected result:**  
+- Flash: *"Message sent to [Employee Name]."*
+- In Microsoft Teams, the admin account's direct chat with that employee shows the new message.
+
+---
+
+### Test 7 — Employee personal authentication
+
+**Goal:** An employee connects their own Microsoft account for peer-to-peer messaging.
+
+**Steps:**
+1. Log in as a regular employee user (not admin).
+2. Open **your own** Employee record (HR → Employees → search your name).
+3. In the **My Teams** button group, click **Connect My Teams Account**.
+4. Complete the Microsoft login with your personal work account.
+
+**Expected result:**  
+- Redirected back to your Employee form.
+- Green flash: *"Teams personal account connected!"*
+- Dashboard shows **"Teams: Personally Connected"** in green.
+- **My Teams → Send Message To...** button appears.
+
+---
+
+### Test 8 — Peer-to-peer direct message
+
+**Goal:** An employee sends a message to a colleague that appears as coming from them (not the admin) in Teams.
+
+**Prerequisites:** Both employees must have their Azure Object IDs synced (Test 1) and the sender must have completed Test 7.
+
+**Steps:**
+1. Logged in as the employee from Test 7, click **My Teams → Send Message To...**.
+2. Select a colleague's Employee record and type a message.
+
+**Expected result:**  
+- Flash: *"Message sent via your Teams account!"*
+- In Microsoft Teams, the recipient sees a direct message **from the sender's own Teams identity** — not from the admin account.
+
+---
+
+### Test 9 — Teams Chat page
+
+**Goal:** Verify the central chat page shows all conversations and can send messages.
+
+**Steps:**
+1. Navigate to `/app/teams-chat` (search *"Teams Chat"* in the navbar).
+2. Confirm the sidebar lists the group chat from Test 2 and the direct chat from Test 6.
+3. Click a conversation, type a message, and press **Enter**.
+
+**Expected result:**  
+- Message history loads with correct bubble styling.
+- After sending, the new message appears immediately.
+- Clicking **Sync All** refreshes the history from Teams.
+
+---
+
+### Test 10 — Hourly background sync
+
+**Goal:** Confirm the scheduler pulls new messages automatically.
+
+**Steps:**
+1. Send a message **directly in Microsoft Teams** (not via ERPNext) to the group chat from Test 2.
+2. Wait for the hourly scheduler, or trigger it manually:
+   ```bash
+   bench --site ksa execute teams_integration.api.chat.sync_all_conversations
+   ```
+3. Open the **Teams Chat** page and select the group chat.
+
+**Expected result:**  
+The message sent from Teams appears in the local history with direction **"Inbound"** and the sender's display name.
+
+---
+
+> For advanced feature testing (real-time notifications, adaptive cards, presence, workflow alerts, calendar sync, recordings, external guests, activity report) see **[FEATURES.md](FEATURES.md)**.
 
 ---
 
